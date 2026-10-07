@@ -1,0 +1,485 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   ABDO CREATOR OS — Design System
+   Dark-first. Deep navy canvas (never pure black). Controlled saturation.
+   No glassmorphism theatre, no neon. Structure carries the hierarchy.
+   ========================================================================== */
+
+@theme {
+  /* --- Canvas & surfaces (charcoal — warm dark, neutral hue) -------------- */
+  --color-canvas: #0a0c10;
+  --color-canvas-deep: #05070a;
+  --color-surface: #11141a;
+  --color-panel: #161a22;
+  --color-panel-2: #1c2230;
+  --color-panel-3: #232a3a;
+  --color-line: #262d3a;
+  --color-line-strong: #343c4d;
+  --color-line-soft: #1a1f2a;
+
+  /* --- Ink --------------------------------------------------------------- */
+  --color-ink: #f3f5f8;
+  --color-ink-soft: #a8b0bd;
+  --color-ink-mute: #6c7686;
+  --color-ink-faint: #424a59;
+
+  /* --- Accents ----------------------------------------------------------- */
+  /* Amber / yellow is the brand accent (matches the signature motif).
+     Blue stays for primary interactive controls where needed. */
+  --color-accent: #FFC93C;
+  --color-accent-soft: #FFE07A;
+  --color-accent-deep: #D78A1A;
+  --color-accent-tint: #FFC93C24;
+
+  /* Optional secondary accent for control surfaces that need contrast
+     against amber (e.g. primary buttons on warm surfaces). */
+  --color-azure: #4c8dff;
+  --color-azure-tint: #4c8dff1f;
+
+  /* Cyan is reserved for LIVE / RUNNING state. Nothing else. */
+  --color-live: #22d3ee;
+  --color-live-tint: #22d3ee1f;
+
+  /* Amber is reserved for ATTENTION: contradictions, stalled jobs, warnings. */
+  --color-attention: #f5a524;
+  --color-attention-tint: #f5a5241f;
+
+  --color-ok: #34d399;
+  --color-ok-tint: #34d3991f;
+  --color-danger: #f2545b;
+  --color-danger-tint: #f2545b1f;
+  --color-plum: #a78bfa;
+  --color-plum-tint: #a78bfa1f;
+
+  /* --- Typography -------------------------------------------------------- */
+  --font-sans: "IBM Plex Sans Arabic", "Inter", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.125rem;
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.25rem;
+  --text-base: 0.875rem;
+  --text-base--line-height: 1.375rem;
+  --text-md: 1rem;
+  --text-md--line-height: 1.5rem;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.65rem;
+  --text-xl: 1.375rem;
+  --text-xl--line-height: 1.85rem;
+  --text-2xl: 1.75rem;
+  --text-2xl--line-height: 2.1rem;
+  --text-3xl: 2.25rem;
+  --text-3xl--line-height: 2.6rem;
+  --text-4xl: 3.25rem;
+  --text-4xl--line-height: 3.6rem;
+
+  /* --- Spacing (4px grid) ------------------------------------------------ */
+  --spacing: 0.25rem;
+
+  /* --- Radius ------------------------------------------------------------ */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-2xl: 18px;
+  --radius-3xl: 24px;
+
+  /* --- Elevation: dark UI lives on borders, not drop shadows -------------- */
+  --shadow-hairline: 0 0 0 1px rgb(255 255 255 / 0.02);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 6px 18px -10px rgb(0 0 0 / 0.7);
+  --shadow-lg: 0 18px 40px -20px rgb(0 0 0 / 0.85);
+  --shadow-float: 0 28px 70px -28px rgb(0 0 0 / 0.9),
+    0 0 0 1px rgb(255 255 255 / 0.04);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-pulse-soft: pulse-soft 2.6s var(--ease-in-out-soft) infinite;
+  --animate-sweep: sweep 1.9s linear infinite;
+  --animate-fade-up: fade-up 0.42s var(--ease-out-expo) both;
+  --animate-fade-in: fade-in 0.28s var(--ease-out-expo) both;
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv02", "cv03", "cv11", "ss01";
+    /* Arabic + Latin must breathe. */
+    text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
+    background-image:
+      radial-gradient(circle at 12% 8%, color-mix(in oklab, var(--color-accent) 6%, transparent), transparent 42%),
+      radial-gradient(circle at 88% 18%, color-mix(in oklab, var(--color-accent) 4%, transparent), transparent 38%),
+      radial-gradient(circle at 50% 100%, color-mix(in oklab, var(--color-accent) 5%, transparent), transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* Subtle dotted grid overlay so every page inherits a sense of structure
+     even when its hero illustration is small or absent. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+    background-image:
+      radial-gradient(color-mix(in oklab, var(--color-accent) 18%, transparent) 0.7px, transparent 0.7px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 30%, transparent 100%);
+  }
+
+  /* Pages sit above the body texture. */
+  #main, [data-app-root] { position: relative; z-index: 1; }
+
+  /* Latin numerals inside Arabic text stay LTR-isolated. */
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+    unicode-bidi: isolate;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  /* Kill the WebKit focus ring only where we replaced it. */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 32%, transparent);
+    color: #fff;
+  }
+
+  ::placeholder {
+    color: var(--color-ink-faint);
+  }
+
+  /* Scrollbars — thin, dark, non-intrusive. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border-radius: 99px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #35476a;
+    background-clip: content-box;
+  }
+
+  textarea,
+  input,
+  button,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+/* ============================================================================
+   Components — shared primitives
+   ========================================================================== */
+
+@layer components {
+  /* Panel: the workhorse. Not a "card" — a bounded surface with a job. */
+  .panel {
+    background: var(--color-panel);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+  }
+
+  .panel-raised {
+    background: linear-gradient(
+      180deg,
+      var(--color-panel-2) 0%,
+      var(--color-panel) 100%
+    );
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Hairline top highlight — the subtle "premium" tell. */
+  .sheen {
+    position: relative;
+  }
+  .sheen::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(255 255 255 / 0.09),
+      transparent
+    );
+    pointer-events: none;
+  }
+
+  .label {
+    font-size: var(--text-2xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-ink-mute);
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--color-line);
+  }
+
+  /* Editorial prose used in briefs, scripts, research output. */
+  .prose-doc {
+    font-size: 1.0625rem;
+    line-height: 1.9;
+    color: var(--color-ink-soft);
+  }
+  .prose-doc strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .prose-doc a {
+    color: var(--color-accent-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-doc ul {
+    list-style: disc;
+    padding-inline-start: 1.25rem;
+    margin-block: 0.75rem;
+  }
+  .prose-doc ol {
+    list-style: decimal;
+    padding-inline-start: 1.25rem;
+    margin-block: 0.75rem;
+  }
+  .prose-doc li {
+    margin-block: 0.3rem;
+  }
+
+  /* Source citation chip — [S01] */
+  .cite {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.5rem;
+    height: 1.125rem;
+    padding-inline: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--color-accent-soft);
+    background: var(--color-accent-tint);
+    border: 1px solid color-mix(in oklab, var(--color-accent) 28%, transparent);
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    vertical-align: 0.1em;
+    transition: background var(--dur-1) var(--ease-out-expo);
+  }
+  .cite:hover {
+    background: color-mix(in oklab, var(--color-accent) 30%, transparent);
+  }
+
+  /* Scroll rail used by desktop side panels */
+  .rail {
+    scrollbar-gutter: stable;
+  }
+}
+
+/* ============================================================================
+   Utilities
+   ========================================================================== */
+
+@layer utilities {
+  .dur-1 {
+    transition-duration: 120ms;
+  }
+  .dur-2 {
+    transition-duration: 180ms;
+  }
+  .dur-3 {
+    transition-duration: 260ms;
+  }
+  .dur-4 {
+    transition-duration: 420ms;
+  }
+  .ease-expo {
+    transition-timing-function: var(--ease-out-expo);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Subtle grid texture for the command canvas — adds depth without noise. */
+  .grid-texture {
+    background-image: linear-gradient(
+        to right,
+        rgb(255 255 255 / 0.022) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.022) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .mask-fade-b {
+    mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ============================================================================
+   Touch targets — WCAG 2.2 AAA 2.5.5 (44 x 44 CSS px)
+   Only applies where a finger is the pointer, so desktop density is untouched.
+   ========================================================================== */
+@media (pointer: coarse) {
+  button:not([disabled]),
+  [role="button"]:not([aria-disabled="true"]),
+  a.btn,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+  }
+
+  /* Secondary nav links in the drawer and the palette. */
+  nav a,
+  [role="listbox"] a {
+    min-height: 44px;
+  }
+
+  /* Small ghost buttons that carry an icon only. */
+  button.inline-flex,
+  button.ms-auto {
+    min-height: 44px;
+  }
+}
+
+/* Keep the mobile brand link a comfortable target. */
+.brand-link {
+  min-height: 44px;
+  padding-inline: 0.25rem;
+}
+
+/* ============================================================================
+   Reduced motion — honour it completely (WCAG 2.2 / 2.3.3)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
